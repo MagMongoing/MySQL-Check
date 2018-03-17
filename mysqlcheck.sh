@@ -1,6 +1,9 @@
 #!/bin/bash
-/usr/bin/mysqladmin ping| grep 'mysqld is alive' > /dev/null 2>&1
+source /etc/profile
+
+mysqladmin -udba -pdbadmin ping| grep 'mysqld is alive' > /dev/null 2>&1
 if [ $? != 0 ]
 then
-    sudo service mysql restart
+    mysqld_multi --defaults-file=/etc/my.cnf start 3341
+#    mysqld_safe --defaults-file=/etc/my.cnf &
 fi
